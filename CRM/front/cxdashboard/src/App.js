@@ -10,8 +10,7 @@ function App() {
   <>
   <Routes>
     <Route path='/user-pannel' element={<UserPannel/>} />
-    <Route path='/edit-profile' element={<EditProfile/>} />
-
+    <Route path='/user-pannel/edit-profile' element={<EditProfile/>} />
   </Routes>
   </>
   );

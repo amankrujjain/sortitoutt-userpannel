@@ -51,7 +51,7 @@ const EditProfile = () => {
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
                                         <label className="text-sm leading-none text-gray-800" id="phone" >Phone number</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="phone" placeholder="123-1234567" />
+                                        <input type="tel" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="phone" placeholder="123-1234567" />
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@ const EditProfile = () => {
                                 <div className="md:flex items-center lg:ml-24 lg:mt-0 mt-4">
                                     <div className="md:w-64">
                                         <label className="text-sm leading-none text-gray-800" id="password">Password</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="password" placeholder="Enter your password" />
+                                        <input type="password" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="password" placeholder="Enter your password" />
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
                                         <label className="text-sm leading-none text-gray-800" id="securityCode">Security Code</label>
@@ -77,11 +77,11 @@ const EditProfile = () => {
                                 <div className="md:flex items-center lg:ml-24 mt-8">
                                     <div className="md:w-64">
                                         <label className="text-sm leading-none text-gray-800" id="recoverEmail">Recovery Email address</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="recoveryEmail" placeholder="Your recovery email" />
+                                        <input type="email" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="recoveryEmail" placeholder="Your recovery email" />
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
                                         <label className="text-sm leading-none text-gray-800" id="altPhone">Alternate phone number</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="altPhone" placeholder="Your alternate phone number" />
+                                        <input type="tel" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="altPhone" placeholder="Your alternate phone number" />
                                     </div>
                                 </div>
                             </div>
@@ -137,13 +137,13 @@ const EditProfile = () => {
                         <div className="mt-16 flex justify-between border-b border-gray-200 pb-16 mb-4">
                             <div className="w-80">
                                 <div className="flex items-center">
-                                <button className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Save Changes</button>
+                                    <button className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Save Changes</button>
                                 </div>
                             </div>
                             <div>
                                 <div className="md:flex items-center lg:ml-24 lg:mt-0 ">
                                     <div className="md:w-64">
-                                    <button className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Cancel</button>
+                                        <button className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Cancel</button>
                                     </div>
                                 </div>
                             </div>
