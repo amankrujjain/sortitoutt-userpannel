@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Link,useNavigate} from 'react-router-dom'
 
 import Card from './Card'
+import DataTable from "./DataTable";
 
 export default function UserPannel() {
   const [show, setShow] = useState(false);
@@ -10,8 +11,22 @@ export default function UserPannel() {
   const [profile, setProfile] = useState(false);
   const navigate = useNavigate()
   const editProfile = ()=>{
-    navigate('/edit-profile')
+    navigate('/user-pannel/edit-profile')
   }
+  const getData = async()=>{
+    console.log('inside')
+    let data = await fetch('http://localhost:8000/user')
+    let userData = await data.json()
+    console.log(userData.data[0].name)
+    return userData
+  }
+
+  useEffect(()=>{
+    getData()
+
+    // console.log(finalData)
+
+  },[])
 
   return (
     <>
@@ -20,7 +35,7 @@ export default function UserPannel() {
         {/* Mobile */}
         <div className={show ? "w-full h-full absolute z-40  transform  translate-x-0 " : "   w-full h-full absolute z-40  transform -translate-x-full"}>
           <div className="bg-gray-800 opacity-50 inset-0 fixed w-full h-full" onClick={() => setShow(!show)} />
-          <div className="w-64 z-20 absolute left-0 z-40 top-0 bg-white shadow flex-col justify-between transition duration-150 ease-in-out h-full">
+          <div className="w-64 z-20 absolute left-0 top-0 bg-white shadow flex-col justify-between transition duration-150 ease-in-out h-full">
             <div className="flex flex-col justify-between h-full">
               <div className="px-6 pt-4">
                 <div className="flex items-center justify-between">
@@ -176,7 +191,7 @@ export default function UserPannel() {
                         <line x1={21} y1={21} x2={15} y2={15} />
                       </svg>
                     </div>
-                    <input className="bg-gray-100 focus:outline-none rounded w-full text-sm text-gray-500 bg-gray-100 pl-10 py-2" type="text" placeholder="Search" />
+                    <input className="bg-gray-100 focus:outline-none rounded w-full text-sm text-gray-500 pl-10 py-2" type="text" placeholder="Search" />
                   </div>
                 </div>
                 <div className="border-t border-gray-300">
@@ -367,6 +382,7 @@ export default function UserPannel() {
             <Card />
           </div>
         </div>
+            <DataTable/>
       </div>
     </>
   );

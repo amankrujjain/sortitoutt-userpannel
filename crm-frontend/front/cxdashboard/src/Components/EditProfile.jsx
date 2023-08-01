@@ -1,6 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {useNavigate} from 'react-router-dom'
+
 
 const EditProfile = () => {
+    const navigate = useNavigate()
+    const [data, setData] = useState({
+        username:'',
+        name:'',
+        phone:'',
+        email:'',
+        recoveryEmail:'',
+        alternatePhone:'',
+        address1:'',
+        state:'',
+        pincode:'',
+        country:''
+    })
+    useEffect(()=>{
+        let response  = async()=>{
+            let result = await fetch(`http://localhost:8000/user/${'649d363f24c83c36a86e5a18'}`)
+            let data = await result.json()
+            console.log(data.data)
+            setData(data.data)
+        }
+        response()
+    },[])
+    const click = async()=>{
+        console.log('hua re')
+        let name = data.name
+        let username = data.username
+        let phone = data.phone
+        let email = data.email
+        let alternatePhone = data.alternatePhone
+        let recoveryEmail = data.recoveryEmail
+        let address1 = data.address1
+        let state = data.state
+        let pincode = data.pincode
+        let country = data.country
+        const update = await fetch(`http://localhost:8000/user/${'649d363f24c83c36a86e5a18'}`,{
+            method:'put',
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify({
+                name:name,
+                username:username,
+                phone:phone,
+                email:email,
+                alternatePhone:alternatePhone,
+                recoveryEmail:recoveryEmail,
+                address1:address1,
+                state:state,
+                pincode:pincode,
+                country:country
+            })
+        })
+        let res = await update.json()
+          console.log(res)
+        if(res.result==='Done'){
+            alert('Changes Saved Successfully')
+            navigate('/')
+          
+        }else{
+            alert('Somthing went wrong')
+        }
+    }
+
+    const handleChange = (e)=>{
+        const name = e.target.name
+        const value = e.target.value
+        setData({
+            ...data,[name]:value
+        })
+    }
+    const cancel = ()=>{
+
+        let res = window.confirm('Are you sure ?')
+        if(res){
+            navigate('/')
+        }else{
+
+        }
+    }
 
     return (
         <>
@@ -36,22 +117,22 @@ const EditProfile = () => {
                             <div>
                                 <div className="md:flex items-center lg:ml-24 lg:mt-0 mt-4">
                                     <div className="md:w-64">
-                                        <label className="text-sm leading-none text-gray-800" id="firstName" >Full name</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="firstName" placeholder="John" />
+                                        <label className="text-sm leading-none text-gray-800" id="firstName" >Username</label>
+                                        <input onChange={handleChange} value={data.username} name="username" type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="firstName" placeholder="John" />
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
                                         <label className="text-sm leading-none text-gray-800" id="lastName">Full Name</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="lastName" placeholder="Doe" />
+                                        <input onChange={handleChange} value={data.name} type="name" name="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="lastName" placeholder="Doe" />
                                     </div>
                                 </div>
                                 <div className="md:flex items-center lg:ml-24 mt-8">
                                     <div className="md:w-64">
                                         <label className="text-sm leading-none text-gray-800" id="emailAddress">Email address</label>
-                                        <input type="email" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="emailAddress" placeholder="youremail@example.com" />
+                                        <input onChange={handleChange} value={data.email} type="email" name="email" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="emailAddress" placeholder="youremail@example.com" />
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
                                         <label className="text-sm leading-none text-gray-800" id="phone" >Phone number</label>
-                                        <input type="tel" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="phone" placeholder="123-1234567" />
+                                        <input onChange={handleChange} value={data.phone} name="phone" type="tel" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="phone" placeholder="123-1234567" />
                                     </div>
                                 </div>
                             </div>
@@ -64,24 +145,14 @@ const EditProfile = () => {
                                 <p className="mt-4 text-sm leading-5 text-gray-600">Information about the section could go here and a brief description of how this might be used.</p>
                             </div>
                             <div>
-                                <div className="md:flex items-center lg:ml-24 lg:mt-0 mt-4">
-                                    <div className="md:w-64">
-                                        <label className="text-sm leading-none text-gray-800" id="password">Password</label>
-                                        <input type="password" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="password" placeholder="Enter your password" />
-                                    </div>
-                                    <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
-                                        <label className="text-sm leading-none text-gray-800" id="securityCode">Security Code</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="securityCode" placeholder="Enter your security code" />
-                                    </div>
-                                </div>
                                 <div className="md:flex items-center lg:ml-24 mt-8">
                                     <div className="md:w-64">
                                         <label className="text-sm leading-none text-gray-800" id="recoverEmail">Recovery Email address</label>
-                                        <input type="email" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="recoveryEmail" placeholder="Your recovery email" />
+                                        <input onChange={handleChange} value={data.recoveryEmail} name='recoveryEmail' type="email" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="recoveryEmail" placeholder="Your recovery email" />
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
                                         <label className="text-sm leading-none text-gray-800" id="altPhone">Alternate phone number</label>
-                                        <input type="tel" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="altPhone" placeholder="Your alternate phone number" />
+                                        <input onChange={handleChange} value={data.alternatePhone} name="alternatePhone" type="tel" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="altPhone" placeholder="Your alternate phone number" />
                                     </div>
                                 </div>
                             </div>
@@ -96,22 +167,22 @@ const EditProfile = () => {
                             <div>
                                 <div className="md:flex items-center lg:ml-24 lg:mt-0 mt-4">
                                     <div className="md:w-64">
-                                        <label className="text-sm leading-none text-gray-800">Permanent Address</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="password" placeholder="Enter your address" />
+                                        <label className="text-sm leading-none text-gray-800">Address</label>
+                                        <input onChange={handleChange} value={data.address1} name="address" type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="password" placeholder="Enter your address" />
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
-                                        <label className="text-sm leading-none text-gray-800">Area</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="securityCode" placeholder="Enter your area name" />
+                                        <label className="text-sm leading-none text-gray-800">State</label>
+                                        <input onChange={handleChange} value={data.state} name="state" type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="securityCode" placeholder="Enter your area name" />
                                     </div>
                                 </div>
                                 <div className="md:flex items-center lg:ml-24 mt-8">
                                     <div className="md:w-64">
                                         <label className="text-sm leading-none text-gray-800">Pin Code</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="recoveryEmail" placeholder="Enter Pin Code" />
+                                        <input onChange={handleChange} value={data.pincode} name="pincode" type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="recoveryEmail" placeholder="Enter Pin Code" />
                                     </div>
                                     <div className="md:w-64 md:ml-12 md:mt-0 mt-4">
                                         <label className="text-sm leading-none text-gray-800" id="altPhone">Country</label>
-                                        <input type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="altPhone" placeholder="Enter country name" />
+                                        <input onChange={handleChange} value={data.country} name="country" type="name" className="w-full p-3 mt-3 bg-gray-100 border rounded border-gray-200 focus:outline-none focus:border-gray-600 text-sm font-medium leading-none text-gray-800" aria-labelledby="altPhone" placeholder="Enter country name" />
                                     </div>
                                 </div>
                             </div>
@@ -137,13 +208,13 @@ const EditProfile = () => {
                         <div className="mt-16 flex justify-between border-b border-gray-200 pb-16 mb-4">
                             <div className="w-80">
                                 <div className="flex items-center">
-                                    <button className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Save Changes</button>
+                                    <button onClick={click} className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Save Changes</button>
                                 </div>
                             </div>
                             <div>
                                 <div className="md:flex items-center lg:ml-24 lg:mt-0 ">
                                     <div className="md:w-64">
-                                        <button className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Cancel</button>
+                                        <button onClick={cancel} className="focus:outline-none transition duration-150 ease-in-out hover:bg-white hover:text-indigo-700 border bg-indigo-700 rounded text-white px-8 py-2 text-sm">Cancel</button>
                                     </div>
                                 </div>
                             </div>
